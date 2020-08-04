@@ -8,6 +8,7 @@ import HomeStackNavigator from './Home/index';
 import CompanyStackNavigator from './Company';
 import MessageStackNavigator from './Message';
 import MyStackNavigator from './My';
+import Common from './common/dialog'
 import WelcomePage from './Welcome';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -75,8 +76,17 @@ const AppInitNavigator = createStackNavigator({
     navigationOptions: {
       header: null,
     }
+  },
+  abc:{
+    screen:Common,
+    navigationOptions: {
+        header: null,
+    }
   }
+},{
+    initialRouteName:'welcome',
 })
+
 const switchNavigator = createSwitchNavigator({
   Init:AppInitNavigator,
   Main:TabNavigator

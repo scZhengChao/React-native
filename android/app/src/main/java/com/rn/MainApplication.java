@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import cn.reactnative.modules.update.UpdatePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
@@ -15,10 +16,16 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import cn.reactnative.modules.update.UpdateContext;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
+        @Override
+          protected String getJSBundleFile() {
+          return UpdateContext.getBundleUrl(MainApplication.this);
+        }
         @Override
         public boolean getUseDeveloperSupport() {
           return BuildConfig.DEBUG;

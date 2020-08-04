@@ -50,11 +50,11 @@ let fetchGet = (arg) => {
     .then(response => response.json())
     .then(responseJson => {
       console.log('result', responseJson);
-      if (responseJson.Status === 1) {
+      // if (responseJson.Status === 1) {
         success && success(responseJson)
-      } else {
-        fail && fail(responseJson)//可以处理返回的错误信息
-      }
+      // } else {
+        // fail && fail(responseJson)//可以处理返回的错误信息
+      // }
     })
     .catch(e => {
       console.log(e)

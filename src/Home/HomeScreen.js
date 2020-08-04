@@ -23,7 +23,6 @@ export default class HomeScreen extends Component {
       contentList: [],
       isLoading: true
     };
-
     this._loadData();
   }
 
@@ -38,6 +37,7 @@ export default class HomeScreen extends Component {
   }
 
   render() {
+    console.log(this,'render')
     if(this.state.isLoading) {
       return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -54,16 +54,18 @@ export default class HomeScreen extends Component {
       />
     );
   }
-
-  _renderItem({item, index}) {
+  _press=()=>{
+    Alert.alert('敬请期待');
+    // this.props.navigation.navigate('abc')
+  }
+  _renderItem = ({item, index})=>{
     const {name,salary,cname,size,username,title} = item;
+   
     return (
       <TouchableHighlight
         underlayColor='#e0e0e0'
         style={styles.itemContent}
-        onPress={()=>{
-          Alert.alert('敬请期待');
-        }}>
+        onPress={this._press}>
         <View>
           <View style={styles.pNameContent}>
             <Text style={styles.pName}>{name}</Text>

@@ -83,6 +83,8 @@ target 'rn' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'react-native-update', :path => '../node_modules/react-native-update'
+
   target 'rnTests' do
     inherit! :complete
     # Pods for testing
