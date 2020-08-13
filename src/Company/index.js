@@ -23,7 +23,7 @@ const CompanyStackNavigator = createStackNavigator(
             headerStyle: {
               backgroundColor: 'rgb(29,216,200)',
             },
-            gesturesEnabled: true,
+            gestureEnabled: true,
             gestureResponseDistance: 100,
         },
     }

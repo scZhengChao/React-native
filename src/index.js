@@ -8,10 +8,13 @@ import HomeStackNavigator from './Home/index';
 import CompanyStackNavigator from './Company';
 import MessageStackNavigator from './Message';
 import MyStackNavigator from './My';
-import Common from './common/dialog'
 import WelcomePage from './Welcome';
 import Icon from 'react-native-vector-icons/FontAwesome'
+// import Finger from './common/finger'
 
+
+//common  components 
+import GestureLogin from './common/gesture' 
 
 const TabNavigator = createBottomTabNavigator(
   {
@@ -76,20 +79,34 @@ const AppInitNavigator = createStackNavigator({
     navigationOptions: {
       header: null,
     }
-  },
-  abc:{
-    screen:Common,
-    navigationOptions: {
-        header: null,
-    }
   }
+})
+
+const TabStackNavigator = createStackNavigator({
+    BottomTabNavigator: {
+        screen: TabNavigator,
+        navigationOptions:{
+            header :null   //这个地方要设置 null 否者会到这header 的title 有问题
+        }
+    },
+    //  这里可以放第三方；或者公共的 组件 
+    GestureLogin:{
+        screen:GestureLogin,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    // Finger:{
+    //     screen:Finger
+    // }
 },{
-    initialRouteName:'welcome',
+    initialRouteName:'BottomTabNavigator',
+    
 })
 
 const switchNavigator = createSwitchNavigator({
   Init:AppInitNavigator,
-  Main:TabNavigator
+  Main:TabStackNavigator
 })
 
 
@@ -99,3 +116,7 @@ const AppNavigator = createAppContainer(switchNavigator);
 // const AppNavigator = createAppContainer(TabNavigator);
 
 export default AppNavigator;
+
+
+
+

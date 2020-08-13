@@ -19,6 +19,10 @@ import {setMessageList,updateMessageList,changeLoading} from './actions'
 const wWidth = Dimensions.get('window').width
 
 class Message extends Component {
+    static navigationOptions = {
+        headerTitle: '消息',
+    };
+
     constructor(props){
         super(props)
         this.state = {
