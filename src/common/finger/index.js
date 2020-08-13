@@ -1,4 +1,4 @@
-'use strict';
+
 import React, {Component} from 'react';
 import {
     Alert,
@@ -8,10 +8,21 @@ import {
     View,
 } from 'react-native';
 import TouchID from "react-native-touch-id";
-const optionalConfigObject = {
-    title: "Authentication Required", // Android
-    color: "#e00606", // Android,
-    fallbackLabel: "Show Passcode" // iOS (if empty, then label is hidden)
+
+const optionalConfigObjectSupport = {
+    unifiedErrors: false, 
+    passcodeFallback: false 
+}
+const optionalConfigObjectAuth  = {
+    title: 'Authentication Required', // Android
+    imageColor: '#e00606', // Android
+    imageErrorColor: '#ff0000', // Android
+    sensorDescription: 'Touch sensor', // Android
+    sensorErrorDescription: 'Failed', // Android
+    cancelText: 'Cancel', // Android
+    fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
+    unifiedErrors: false, // use unified error messages (default false)
+    passcodeFallback: false, 
 }
 export default class FingerPrint extends Component {
     constructor() {
@@ -22,13 +33,19 @@ export default class FingerPrint extends Component {
     }
 
     componentDidMount() {
-        TouchID.isSupported()
+        TouchID.isSupported(optionalConfigObjectSupport)
             .then(biometryType => {
-                Alert.alert(biometryType)
-                this.setState({biometryType});
-            }).catch(err=>{
-                Alert.alert(err.message)
+                // Success code
+                if (biometryType === 'FaceID') {
+                    Alert.alert('FaceID is supported.');
+                } else {
+                    Alert.alert('TouchID is supported.');
+                }
             })
+            .catch(error => {
+                // Failure code
+                Alert.alert(error.message);
+            });
     }
 
     render() {
@@ -52,7 +69,7 @@ export default class FingerPrint extends Component {
     }
 
     clickHandler() {
-        TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+        TouchID.authenticate('to demo this react-native component', optionalConfigObjectAuth)
         .then(success => {
             Alert.alert('Authenticated Successfully');
         })
