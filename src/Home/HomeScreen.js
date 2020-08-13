@@ -29,7 +29,7 @@ export default class HomeScreen extends Component {
     this._loadData();
   }
   componentDidMount(){
-    this.subscribe()
+    // this.subscribe()
   }
   componentWillMount(){
       setTimeout(()=>{
@@ -39,10 +39,10 @@ export default class HomeScreen extends Component {
       },2000)
   }
   componentDidUpdate(nextProps,nextState){
-      console.log(nextProps,nextState,'------------------update-------------')
+    //   console.log(nextProps,nextState,'------------------update-------------')
   }
   componentWillUnmount(){
-      console.log('HomeScrenn卸载了-------------------------------------')
+    //   console.log('HomeScrenn卸载了-------------------------------------')
   }
   subscribe(){
     this.viewDidAppear = this.props.navigation.addListener(
@@ -107,7 +107,7 @@ export default class HomeScreen extends Component {
     this.props.navigation.navigate('Finger')
 
     // 弹框三：  去公共组件 手势登陆
-    this.props.navigation.navigate('GestureLogin')
+    // this.props.navigation.navigate('GestureLogin')
 
 
     // 弹框二：  dialog

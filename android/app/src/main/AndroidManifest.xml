@@ -2,7 +2,9 @@
   package="com.rn">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
+    <!-- react-native-touch-id config -->
+    <uses-permission android:name ="android.permission.USE_FINGERPRINT"/>
+
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"

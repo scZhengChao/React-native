@@ -10,7 +10,7 @@ import MessageStackNavigator from './Message';
 import MyStackNavigator from './My';
 import WelcomePage from './Welcome';
 import Icon from 'react-native-vector-icons/FontAwesome'
-// import Finger from './common/finger'
+import Finger from './common/finger'
 
 
 //common  components 
@@ -96,9 +96,9 @@ const TabStackNavigator = createStackNavigator({
             header: null,
         }
     },
-    // Finger:{
-    //     screen:Finger
-    // }
+    Finger:{
+        screen:Finger
+    }
 },{
     initialRouteName:'BottomTabNavigator',
     

@@ -1,128 +1,80 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+'use strict';
+import React, {Component} from 'react';
 import {
-  Alert,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewPropTypes,
-  Platform,
+    Alert,
+    StyleSheet,
+    Text,
+    TouchableHighlight,
+    View,
 } from 'react-native';
-
-import FingerprintScanner from 'react-native-fingerprint-scanner';
-import styles from './FingerprintPopup.component.styles';
-import ShakingText from './ShakingText.component';
-
-
-// - this example component supports both the
-//   legacy device-specific (Android < v23) and
-//   current (Android >= 23) biometric APIs
-// - your lib and implementation may not need both
-class BiometricPopup extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      errorMessageLegacy: undefined,
-      biometricLegacy: undefined
-    };
-
-    this.description = null;
-  }
-
-  componentDidMount() {
-    if (this.requiresLegacyAuthentication()) {
-      this.authLegacy();
-    } else {
-      this.authCurrent();
-    }
-  }
-
-  componentWillUnmount = () => {
-    FingerprintScanner.release();
-  }
-
-  requiresLegacyAuthentication() {
-    return Platform.Version < 23;
-  }
-
-  authCurrent() {
-    FingerprintScanner
-      .authenticate({ title: 'Log in with Biometrics' })
-      .then(() => {
-        this.props.onAuthenticate();
-      });
-  }
-
-  authLegacy() {
-    FingerprintScanner
-      .authenticate({ onAttempt: this.handleAuthenticationAttemptedLegacy })
-      .then(() => {
-        this.props.handlePopupDismissedLegacy();
-        Alert.alert('Fingerprint Authentication', 'Authenticated successfully');
-      })
-      .catch((error) => {
-        this.setState({ errorMessageLegacy: error.message, biometricLegacy: error.biometric });
-        this.description.shake();
-      });
-  }
-
-  handleAuthenticationAttemptedLegacy = (error) => {
-    this.setState({ errorMessageLegacy: error.message });
-    this.description.shake();
-  };
-
-  renderLegacy() {
-    const { errorMessageLegacy, biometricLegacy } = this.state;
-    const { style, handlePopupDismissedLegacy } = this.props;
-
-    return (
-      <View style={styles.container}>
-        <View style={[styles.contentContainer, style]}>
-
-          <Image
-            style={styles.logo}
-            source={require('./assets/finger_print.png')}
-          />
-
-          <Text style={styles.heading}>
-            Biometric{'\n'}Authentication
-          </Text>
-          <ShakingText
-            ref={(instance) => { this.description = instance; }}
-            style={styles.description(!!errorMessageLegacy)}>
-            {errorMessageLegacy || `Scan your ${biometricLegacy} on the\ndevice scanner to continue`}
-          </ShakingText>
-
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={handlePopupDismissedLegacy}
-          >
-            <Text style={styles.buttonText}>
-              BACK TO MAIN
-            </Text>
-          </TouchableOpacity>
-
-        </View>
-      </View>
-    );
-  }
-
-
-  render = () => {
-    if (this.requiresLegacyAuthentication()) {
-      return this.renderLegacy();
-    }
-
-    // current API UI provided by native BiometricPrompt
-    return null;
-  }
+import TouchID from "react-native-touch-id";
+const optionalConfigObject = {
+    title: "Authentication Required", // Android
+    color: "#e00606", // Android,
+    fallbackLabel: "Show Passcode" // iOS (if empty, then label is hidden)
 }
+export default class FingerPrint extends Component {
+    constructor() {
+        super()
+        this.state = {
+            biometryType: null
+        };
+    }
 
-BiometricPopup.propTypes = {
-  onAuthenticate: PropTypes.func.isRequired,
-  handlePopupDismissedLegacy: PropTypes.func,
-  style: ViewPropTypes.style,
-};
+    componentDidMount() {
+        TouchID.isSupported()
+            .then(biometryType => {
+                Alert.alert(biometryType)
+                this.setState({biometryType});
+            }).catch(err=>{
+                Alert.alert(err.message)
+            })
+    }
 
-export default BiometricPopup;
+    render() {
+        return (
+            <View style={styles.container}>
+                <TouchableHighlight
+                    style={styles.btn}
+                    onPress={this.clickHandler}
+                    underlayColor="#0380BE"
+                    activeOpacity={1}
+                >
+                    <Text style={{
+                        color: '#fff',
+                        fontWeight: '600'
+                    }}>
+                        {`Authenticate with ${this.state.biometryType}`}
+                    </Text>
+                </TouchableHighlight>
+            </View>
+        );
+    }
+
+    clickHandler() {
+        TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+        .then(success => {
+            Alert.alert('Authenticated Successfully');
+        })
+        .catch(error => {
+            Alert.alert('Authentication Failed');
+        });
+    }
+}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF'
+    },
+    btn: {
+        borderRadius: 3,
+        marginTop: 200,
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingLeft: 15,
+        paddingRight: 15,
+        backgroundColor: '#0391D7'
+    }
+});
