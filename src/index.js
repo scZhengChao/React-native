@@ -11,7 +11,7 @@ import MyStackNavigator from './My';
 import WelcomePage from './Welcome';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Finger from './common/finger'
-
+import IconFont from './common/iconFont/index.js'
 
 //common  components 
 import GestureLogin from './common/gesture' 
@@ -98,6 +98,9 @@ const TabStackNavigator = createStackNavigator({
     },
     Finger:{
         screen:Finger
+    },
+    IconFont:{
+        screen:IconFont
     }
 },{
     initialRouteName:'BottomTabNavigator',

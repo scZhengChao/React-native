@@ -101,10 +101,14 @@ export default class HomeScreen extends Component {
     );
   }
   _press=()=>{
+    
     // Alert.alert('敬请期待');
 
+    //方法五 ： 去字体图片 svg icon
+    this.props.navigation.navigate('IconFont')
+
     //方法四： 去公共组件 指纹和密码登陆
-    this.props.navigation.navigate('Finger')
+    // this.props.navigation.navigate('Finger')
 
     // 弹框三：  去公共组件 手势登陆
     // this.props.navigation.navigate('GestureLogin')

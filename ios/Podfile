@@ -85,6 +85,8 @@ target 'rn' do
 
   pod 'react-native-update', :path => '../node_modules/react-native-update'
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'rnTests' do
     inherit! :complete
     # Pods for testing

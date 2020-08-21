@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
 import cn.reactnative.modules.update.UpdatePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -17,6 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import cn.reactnative.modules.update.UpdateContext;
+
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -39,7 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
 
-        
+        //   packages.add(new SvgPackage());
           return packages;
         }
 

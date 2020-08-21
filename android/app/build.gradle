@@ -188,12 +188,12 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-svg')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
-    // react-native-fingerprint-scanner config 
-    // implementation project(':react-native-fingerprint-scanner')
+ 
     
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
@@ -216,6 +216,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    // 如果只需要支持WebP格式而不需要动图
+    implementation 'com.facebook.fresco:webpsupport:2.0.0'
 }
 
 // Run this once to be able to run the application with BUCK

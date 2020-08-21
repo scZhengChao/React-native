@@ -6,6 +6,11 @@ import {
     StatusBar
 } from 'react-native'
 
+const originTextRender = Text.render;
+Text.render = function render(props, ref) {
+    return originTextRender.apply(this, [{ ...props,  style: [ true ? {fontFamily:null} : null, props.style] }, ref]);  
+}; 
+
 
 import {createStore,applyMiddleware }  from 'redux'
 import {Provider, connect} from 'react-redux';
