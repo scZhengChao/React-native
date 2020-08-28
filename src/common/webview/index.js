@@ -62,7 +62,8 @@ class MyInlineWeb extends Component {
         setInterval(()=>{
             i++
             console.log('111111111111111111111')
-            this.refs.webview.injectJavaScript(`document.querySelector('.des').innerHTML='持续注入中'${i}`)
+            this.refs.webview.injectJavaScript(`document.querySelector('.des').innerHTML='持续注入中${i}'`)
+            this.refs.webview.injectJavaScript(`toRN('asasfasf')`)
         },2000)
     }
     render() {
