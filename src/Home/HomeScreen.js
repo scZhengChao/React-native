@@ -104,8 +104,12 @@ export default class HomeScreen extends Component {
     
     // Alert.alert('敬请期待');
 
+
+    //方法六： 去webview
+    this.props.navigation.navigate('Webview')
+
     //方法五 ： 去字体图片 svg icon
-    this.props.navigation.navigate('IconFont')
+    // this.props.navigation.navigate('IconFont')
 
     //方法四： 去公共组件 指纹和密码登陆
     // this.props.navigation.navigate('Finger')

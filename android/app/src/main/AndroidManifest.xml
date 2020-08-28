@@ -4,6 +4,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- react-native-touch-id config -->
     <uses-permission android:name ="android.permission.USE_FINGERPRINT"/>
+    <!-- react-native-webview -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
       android:name=".MainApplication"
@@ -11,6 +14,7 @@
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
+      android:usesCleartextTraffic="true" 
       android:theme="@style/AppTheme">
       <activity
         android:name=".MainActivity"

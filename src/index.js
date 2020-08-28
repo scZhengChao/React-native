@@ -9,12 +9,16 @@ import CompanyStackNavigator from './Company';
 import MessageStackNavigator from './Message';
 import MyStackNavigator from './My';
 import WelcomePage from './Welcome';
+
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Finger from './common/finger'
-import IconFont from './common/iconFont/index.js'
+
 
 //common  components 
 import GestureLogin from './common/gesture' 
+import Finger from './common/finger'
+import IconFont from './common/iconFont/index.js'
+import Webview from './common/webview'
+
 
 const TabNavigator = createBottomTabNavigator(
   {
@@ -101,6 +105,9 @@ const TabStackNavigator = createStackNavigator({
     },
     IconFont:{
         screen:IconFont
+    },
+    Webview:{
+        screen:Webview
     }
 },{
     initialRouteName:'BottomTabNavigator',
