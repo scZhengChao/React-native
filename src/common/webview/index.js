@@ -49,7 +49,7 @@ class MyInlineWeb extends Component {
     }
     handMessage=(event)=>{
         console.log(`在 webview 内部的网页中调用 window.postMessage 方法时可以触发此属性对应的函数，从而实现网页和 RN 之间的数据交换。 设置此属性的同时会在 webview 中注入一个 postMessage 的全局函数并覆盖可能已经存在的同名实现`)
-        console.log(event)
+        JSON.parse(event.nativeEvent)  
         this.refs.webview.postMessage('react-native 想H5发送了一条消息')
     }
     ToH5=()=>{
@@ -62,8 +62,8 @@ class MyInlineWeb extends Component {
         setInterval(()=>{
             i++
             console.log('111111111111111111111')
-            this.refs.webview.injectJavaScript(`document.querySelector('.des').innerHTML='持续注入中${i}'`)
-            this.refs.webview.injectJavaScript(`toRN('asasfasf')`)
+            this.refs.webview.injectJavaScript(`document.querySelector('.des').innerHTML='持续注入中${i}'`)  //持续注入
+            this.refs.webview.injectJavaScript(`toRN('asasfasf')`)  // 取出函数传值
         },2000)
     }
     render() {
