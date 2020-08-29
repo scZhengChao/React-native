@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        .box{
+            width: 100px;
+            height: 2000px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <p class="des">111</p>
+    <p class="des2">2222</p>
+   <p class="des3"></p>
+  <input type="button" value="发送" class="btn" > 
+  <a href="http://192.168.3.6:8000/test.html?a=1&b=2">去百度</a>
+</body>
+<script crossorigin="anonymous" integrity="sha384-AQhQSZGQWTMJhb/TdS7NWpCmOM/8lIEsaevSU5oZtt8pQKoa+uJL4A2WnQ0O5Zj2" src="https://lib.baomitu.com/jquery/3.5.0/jquery.js"></script>
+<script>
+var des = document.querySelector('.des')
+var des2 = document.querySelector('.des2')
+var des3 = document.querySelector('.des3')
+var btn = document.querySelector('.btn')
+window.document.addEventListener('message',(e)=>{
+    des.innerHTML = e.data
+})
+btn.addEventListener('click',()=>{
+    des.innerHTML = '我点击了'
+    let obj = {
+        type:0,
+        data:'这是我发送的11',
+        callback:toRN
+        
+    }
+    window.ReactNativeWebView.postMessage(JSON.stringify(obj))
+})
+function toRN(data){
+    des2.innerHTML = data
+}
+window.onload = function(){
+    des3.innerHTML = location.search
+}
+</script>
+</html>

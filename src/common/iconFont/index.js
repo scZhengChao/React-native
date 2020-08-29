@@ -20,6 +20,9 @@ import Life from '../lifeStyle'
 export default class icon extends Component {
     constructor(props){
         super(props)
+        this.state = {
+            title:'hahah'
+        }
     }
     render(){
         return (
@@ -54,9 +57,14 @@ export default class icon extends Component {
                 <Mysvg icon="zichan" size="40" color="red"/>
                 <Mysvg icon="money" size="40" color="red"/>
                 <Text>生命周期 样式 16.4+ 最新版</Text>
-                  <Life title='hahah'></Life>
+                  <Life title={this.state.title} upDateTitle={this.upDateTitle}></Life>
             </View>
         )
+    }
+    upDateTitle=()=>{
+        this.setState({
+            title:'updateProps'
+        })
     }
     componentDidMount(){
 
