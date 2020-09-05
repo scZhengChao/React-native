@@ -83,6 +83,8 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -154,8 +156,14 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            resValue "string", "CodePushDeploymentKey", '""'
         }
+        releaseStaging  {
+            resValue "string", "CodePushDeploymentKey", '"p3OU_AKIhct0l1315yesLzlkhcQ6mjwIFNQLp"'
+        }
+
         release {
+            resValue "string", "CodePushDeploymentKey", '"wSrZKcZErACA40jydR5MxgfyicXu_Cq2EEQxSE"'
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
             signingConfig signingConfigs.debug
@@ -194,6 +202,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
  
+    compile project(':react-native-code-push')
     
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 

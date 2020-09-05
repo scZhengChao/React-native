@@ -38,8 +38,7 @@ export default class HomeScreen extends Component {
   }
   componentDidMount(){
     // this.subscribe() //navigation 生命周期钩子
-    console.log(this.props)
-    console.log(this.context)
+   
   }
   componentWillMount(){
       setTimeout(()=>{

@@ -18,16 +18,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import cn.reactnative.modules.update.UpdateContext;
-
+import com.microsoft.codepush.react.CodePush;
 
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
-        @Override
-          protected String getJSBundleFile() {
-          return UpdateContext.getBundleUrl(MainApplication.this);
+        // @Override
+        //   protected String getJSBundleFile() {
+        //   return UpdateContext.getBundleUrl(MainApplication.this);
+        // }
+         @Override
+        protected String getJSBundleFile() {
+            return CodePush.getJSBundleFile();
         }
+        
         @Override
         public boolean getUseDeveloperSupport() {
           return BuildConfig.DEBUG;
