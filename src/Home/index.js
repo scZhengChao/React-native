@@ -1,5 +1,18 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import HomeScreen from './HomeScreen';
+import Home from './HomeScreen';
+import {connect } from 'react-redux'
+const HomeScreen = connect(
+    state=>{
+        return {
+            nav:state.nav
+        }
+    },
+    {
+       
+    }
+)(Home)
+
+
 
 const HomeStackNavigator = createStackNavigator(
   {

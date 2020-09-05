@@ -13,6 +13,7 @@ import WelcomePage from './Welcome';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 
+
 //common  components 
 import GestureLogin from './common/gesture' 
 import Finger from './common/finger'
@@ -118,7 +119,6 @@ const switchNavigator = createSwitchNavigator({
   Init:AppInitNavigator,
   Main:TabStackNavigator
 })
-
 
 
 const AppNavigator = createAppContainer(switchNavigator);

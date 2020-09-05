@@ -8,7 +8,7 @@ import {
     Dimensions,
     TouchableWithoutFeedback
 } from 'react-native'
-
+import PropTypes from 'prop-types'
 export default class MyLifeCricle extends Component {
     constructor(props){
         super(props)
@@ -18,6 +18,8 @@ export default class MyLifeCricle extends Component {
             test:'state'
         }
     }
+ 
+    
     // 取代了 componentwillMount componentWillReceiveProps  shouldComponentUpdate compoentWillUpdate 四个钩子合为一个
     // 强制开发者在render之前 只是做无副作用的操作，且局限在props 和 state 之间
     // 返回一个对象 更新state  类似 setState({}), 若返回null 则不更新shouldComponentUpdate ， 返回值是必须的

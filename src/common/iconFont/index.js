@@ -15,13 +15,14 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 import Mysvg from '../svgComponent/index'
 import Life from '../lifeStyle'
+import {connect } from 'react-redux'
 
 
-export default class icon extends Component {
+class MyIcon extends Component {
     constructor(props){
         super(props)
         this.state = {
-            title:'hahah'
+            title:'hahah',
         }
     }
     render(){
@@ -67,10 +68,23 @@ export default class icon extends Component {
         })
     }
     componentDidMount(){
-
+        console.log('IconFont',this.props)
+        
     }
 }
-
+const IconScreen = connect(
+  
+    state=>{
+        console.log(state)
+        return {
+            nav:state.nav
+        }
+    },
+    {
+       
+    }
+)(MyIcon)
+export default IconScreen
 const styles = StyleSheet.create({
     container: {
       paddingTop: 50,

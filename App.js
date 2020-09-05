@@ -5,7 +5,7 @@ import {
     StyleSheet,
     StatusBar
 } from 'react-native'
-
+import PropTypes from 'prop-types'
 const originTextRender = Text.render;
 Text.render = function render(props, ref) {
     return originTextRender.apply(this, [{ ...props,  style: [ true ? {fontFamily:null} : null, props.style] }, ref]);  
@@ -20,23 +20,25 @@ import { createReduxContainer,createReactNavigationReduxMiddleware }  from 'reac
 import AppContainter from './src';
 import appReducer from './src/reducer.js';
 
-
 const middleware = createReactNavigationReduxMiddleware(state=>state.nav)
 const AppReduxContainer = createReduxContainer(AppContainter)
 
-const mapStateToProps = state => ({
-    state: state.nav,
-});
+const mapStateToProps = state =>{
+    return  {
+        state: state.nav,
+    };
+}
 
 const AppWithNavigationState = connect(mapStateToProps)(AppReduxContainer);
 const store = createStore(appReducer, applyMiddleware(middleware));
 
+console.log(store,'--------store------------')
 class App extends Component {
     render() {
         return (
             <Provider store={store} style={styles.container}>
                 <StatusBar barStyle="light-content" />
-                <AppWithNavigationState />
+                <AppWithNavigationState/>
             </Provider>
         )
     }

@@ -10,16 +10,22 @@ import {
 } from 'react-native';
 import {positionList} from '../data';
 import { AlertUtil } from '../common/dialog';
+import PropTypes, { func } from 'prop-types' 
 import Toast from 'react-native-root-toast'; // 引入类库
+const ThemeContext = React.createContext({
+    a:1,
+    b:2
+});
 export default class HomeScreen extends Component {
 
   static navigationOptions = {
     headerTitle: '大前端',
   };
+  static contextTypes = {         store: PropTypes.object     }
 
-  constructor(props) {
-    super(props);
-
+  constructor(props,context) {
+    super(props,context);
+   
     this.state = {
       contentList: [],
       isLoading: true,
@@ -27,9 +33,13 @@ export default class HomeScreen extends Component {
       test:true
     };
     this._loadData();
+    
+  
   }
   componentDidMount(){
-    // this.subscribe()
+    // this.subscribe() //navigation 生命周期钩子
+    console.log(this.props)
+    console.log(this.context)
   }
   componentWillMount(){
       setTimeout(()=>{
