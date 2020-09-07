@@ -98,7 +98,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 /**
  * The preferred build flavor of JavaScriptCore.
@@ -152,6 +152,15 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                 keyAlias 'zhengchao' //别名
+                keyPassword 'zhengchao' //密钥密码 之前设置秘钥口令
+                storeFile file('./app.keystore') //my-release-key.keystore文件的绝对路径
+                storePassword 'zhengchao' //存储密码
+            }
+           
+        }
     }
     buildTypes {
         debug {
@@ -166,8 +175,9 @@ android {
             resValue "string", "CodePushDeploymentKey", '"wSrZKcZErACA40jydR5MxgfyicXu_Cq2EEQxSE"'
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
-            minifyEnabled enableProguardInReleaseBuilds
+            // signingConfig signingConfigs.debug 
+            minifyEnabled enableProguardInReleaseBuilds // 在 当前文件中，找到变量 enableProguardInReleaseBuilds ,将其值修改为 true
+            signingConfig signingConfigs.release // 引用签名
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
