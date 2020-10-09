@@ -113,8 +113,11 @@ export default class HomeScreen extends Component {
     
     // Alert.alert('敬请期待');
 
+    // 去 react-native-elements ui库
+    this.props.navigation.navigate('Elements')
+
     // 方法七： 去生命周期
-    this.props.navigation.navigate('IconFont')
+    // this.props.navigation.navigate('IconFont')
 
     //方法六： 去webview
     // this.props.navigation.navigate('Webview')

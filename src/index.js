@@ -19,7 +19,7 @@ import GestureLogin from './common/gesture'
 import Finger from './common/finger'
 import IconFont from './common/iconFont/index.js'
 import Webview from './common/webview'
-
+import Elements from './common/elements'
 
 const TabNavigator = createBottomTabNavigator(
   {
@@ -109,6 +109,9 @@ const TabStackNavigator = createStackNavigator({
     },
     Webview:{
         screen:Webview
+    },
+    Elements:{
+        screen:Elements
     }
 },{
     initialRouteName:'BottomTabNavigator',

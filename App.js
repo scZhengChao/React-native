@@ -41,13 +41,13 @@ class App extends Component {
         showProcess: false, 
         showIndicator:false
     };
-    _handleUpdate = async () => {
+    _handleUpdate = () => {
         this.setState({showIndicator: true});
     
         // checkForUpdate 返回promise，包含了服务端安装包的各种信息，包的大小版本之类的,
         // 如果要构建构建个性化更新界面，需要用到此方法
         // const updateMessage = await CodePush.checkForUpdate() || {};
-        CodePush.checkForUpdate().then(update=>{
+       return CodePush.checkForUpdate().then(update=>{
             console.log('thne------------------')
             if(!update){
                 Alert('提示','已经是最新版本')
@@ -133,6 +133,8 @@ class App extends Component {
     handleUpdate = () => this._handleUpdate().catch(()=>{
         this.setState({showIndicator: false});
         Alert('网络错误')
+    }).finally(all=>{
+        this.setState({showIndicator: false});
     });
 
 
