@@ -10,6 +10,8 @@ import {
 import PropTypes from 'prop-types'
 import CodePush from "react-native-code-push"; // 引入code-push
 const originTextRender = Text.render;
+
+// 解决小米miui12 兰亭字体的bug
 Text.render = function render(props, ref) {
     return originTextRender.apply(this, [{ ...props,  style: [ true ? {fontFamily:null} : null, props.style] }, ref]);  
 }; 
@@ -62,8 +64,7 @@ class App extends Component {
                 ])
             }
         }).catch(err=>{
-            console.log('error------------------')
-            Alert('提示',JSON.stringify(err))
+            console.log('error------------------',err)
         })
 
         // console.log(updateMessage,'------------')
@@ -150,7 +151,7 @@ class App extends Component {
 
 
     componentDidMount(){
-        this.handleUpdate()
+        // this.handleUpdate()
     }
     render() {
         return (
@@ -186,42 +187,41 @@ const styles = StyleSheet.create({
            
        ]
     }
-  });
+});
 
 
 
-  let CodePushOptions = {
-    // 何时检查更新（ON_APP_START:程序启动  ON_APP_RESUME:程序从后台进入前台  MANUAL:手动控制）
-    checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
-    // 何时安装（ON_NEXT_RESTART:下次程序启动  ON_NEXT_RESUME:下次程序从后台进入前台  ON_NEXT_SUSPEND:在后台更新  IMMEDIATE:立即更新，并启动程序）
-    installMode: CodePush.InstallMode.IMMEDIATE,
-    // 表示重启程序之前，在后台呆的最短时间
-    minimumBackgroundDuration: 0,
-    // 强制更新，并启动
-    mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
-    // 更新时候的提示更新框
-    updateDialog: {
-      // 标题
-      title: '发现新版本',
-  
-      // 确认按钮标题
-      optionalInstallButtonLabel: '更新',
-      // 忽略按钮标题
-      optionalIgnoreButtonLabel: '忽略',
-      // 非强制更新情况下，提示框内容
-      optionalUpdateMessage: '有新内容，是否需要更新？',
-  
-      // 强制更新按钮标题
-      mandatoryContinueButtonLabel: '立即更新',
-      // 强制更新情况下，提示框内容
-      mandatoryUpdateMessage: '有新内容，请立即更新',
-  
-      // 是否将版本描述添加在提示框中
-      appendReleaseDescription: true,
-      // 添加的描述前缀
-      descriptionPrefix: '更新内容：',
-    }
-  };
-  
-  
+let CodePushOptions = {
+// 何时检查更新（ON_APP_START:程序启动  ON_APP_RESUME:程序从后台进入前台  MANUAL:手动控制）
+checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
+// 何时安装（ON_NEXT_RESTART:下次程序启动  ON_NEXT_RESUME:下次程序从后台进入前台  ON_NEXT_SUSPEND:在后台更新  IMMEDIATE:立即更新，并启动程序）
+installMode: CodePush.InstallMode.IMMEDIATE,
+// 表示重启程序之前，在后台呆的最短时间
+minimumBackgroundDuration: 0,
+// 强制更新，并启动
+mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
+// 更新时候的提示更新框
+updateDialog: {
+    // 标题
+    title: '发现新版本',
+
+    // 确认按钮标题
+    optionalInstallButtonLabel: '更新',
+    // 忽略按钮标题
+    optionalIgnoreButtonLabel: '忽略',
+    // 非强制更新情况下，提示框内容
+    optionalUpdateMessage: '有新内容，是否需要更新？',
+
+    // 强制更新按钮标题
+    mandatoryContinueButtonLabel: '立即更新',
+    // 强制更新情况下，提示框内容
+    mandatoryUpdateMessage: '有新内容，请立即更新',
+
+    // 是否将版本描述添加在提示框中
+    appendReleaseDescription: true,
+    // 添加的描述前缀
+    descriptionPrefix: '更新内容：',
+}
+};
+
 export default  CodePush(CodePushOptions)(App);

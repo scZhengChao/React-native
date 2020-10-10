@@ -21,6 +21,8 @@ import IconFont from './common/iconFont/index.js'
 import Webview from './common/webview'
 import Elements from './common/elements'
 
+
+console.log(Elements,'----------------------------------------------------')
 const TabNavigator = createBottomTabNavigator(
   {
     Home: {
