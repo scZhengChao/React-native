@@ -21,7 +21,9 @@ export default class HomeScreen extends Component {
   static navigationOptions = {
     headerTitle: '大前端',
   };
-  static contextTypes = {         store: PropTypes.object     }
+  static contextTypes = {         
+      store: PropTypes.object    
+    }
 
   constructor(props,context) {
     super(props,context);
@@ -93,10 +95,12 @@ export default class HomeScreen extends Component {
   }
 
   render() {
+      const {isLoading} = this.state
     if(this.state.isLoading) {
       return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <ActivityIndicator color='gray' size='large'/>
+         <Text>{isLoading}</Text>
         </View>
       );
     }
@@ -114,7 +118,7 @@ export default class HomeScreen extends Component {
     // Alert.alert('敬请期待');
 
     // 去 react-native-elements ui库
-    this.props.navigation.navigate('Elements')
+    // this.props.navigation.navigate('Elements')
 
     // 方法七： 去生命周期
     // this.props.navigation.navigate('IconFont')

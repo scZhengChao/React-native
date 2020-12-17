@@ -59,85 +59,89 @@ class App extends Component {
                         text:'ok',
                         onPress:()=>{
                             console.log('开始更新')
+                            this.beginUpdate()
                         }
                     }
                 ])
             }
-        }).catch(err=>{
-            console.log('error------------------',err)
         })
 
-        // console.log(updateMessage,'------------')
-        // console.log(updateMessage);
-        // return;
+       
     
-        // 执行更新
-        // await CodePush.sync(
-        //     // 第一个参数吗，是个对象，可定义更新的动作
-        //     {
-        //         // 安装模式 'IMMEDIATE' 立刻安装，并重启 ON_NEXT_RESUME 下次启动安装
-        //         installMode: CodePush.InstallMode.IMMEDIATE,
-        
-        //         // 强制更新模式下的安装，默认是IMMEDIATE 直接安装
-        //         mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
-        
-        //         //更新确认弹窗设置，设置系统自带弹窗中的内容
-        //         updateDialog:{
-        //             mandatoryUpdateMessage:'强制更新内容: '+updateMessage.description,
-        //             mandatoryContinueButtonLabel:'强制更新/确认',
-        //             optionalIgnoreButtonLabel:'取消',
-        //             optionalInstallButtonLabel:'安装',
-        //             optionalUpdateMessage:'本次更新内容: '+updateMessage.description,
-        //             title:'发现新版本'
-        //         }
-        //     },
-        //     // 第二个参数，更新状态检测，返回数字
-        //     //0 已经是最新，
-        //     //1 安装完成、等待生效，
-        //     //2 忽略更新，
-        //     //3 未知错误，
-        //     //4 已经在下载了，
-        //     //5 查询更新，
-        //     //6 弹出了更新确认界面，
-        //     //7 下载中，
-        //     //8 下载完成
-        //     (status)=>{
-        //         switch (status){
-        //         case 0: 
-        //             Alert('已经是最新版本');
-        //             break;
-        //         case 1 : 
-        //             !updateMessage.isMandatory && Alert('更新完成, 再启动APP更新即生效');
-        //             break;
-        //         case 3: 
-        //             Alert('出错了，未知错误');
-        //             break;
-        //         case 7 : 
-        //             this.setState({showProcess: true});
-        //             break;
-        //         case 8 : 
-        //             this.setState({showProcess: false});
-        //             break;
-        //         }
-        //     },
-        //   // 第三个参数，检测下载过程
-        //   ({receivedBytes,totalBytes})=>{
-        //     // console.log('DownloadProgress: ', receivedBytes, totalBytes);
-        //     this.setState({
-        //         receivedBytes: (receivedBytes/1024).toFixed(2), 
-        //         totalBytes: (totalBytes/1024).toFixed(2)})
-        //   },
-        // );
-        // this.setState({showIndicator: false});
+      
       };
     
-    handleUpdate = () => this._handleUpdate().catch(()=>{
+    handleUpdate = () => {
+        this._handleUpdate().catch(()=>{
+            this.setState({showIndicator: false});
+            Alert('网络错误')
+        }).finally(all=>{
+            this.setState({showIndicator: false});
+        });
+    }
+    beginUpdate =async ()=>{
+        // 执行更新
+        await CodePush.sync(
+            // 第一个参数吗，是个对象，可定义更新的动作
+            {   
+                //installMode来决定安装完成的重启时机,亦即更新生效时机
+                //'IMMEDIATE' 表示安装完成立即重启更新
+                //ON_NEXT_RESTART 表示安装完成后会在下次重启后进行更新
+                //ON_NEXT_RESUME 表示安装完成后会在应用进入后台后重启更新
+                installMode: CodePush.InstallMode.IMMEDIATE,
+        
+                // 强制更新模式下的安装，默认是IMMEDIATE 直接安装
+                mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
+        
+                //更新确认弹窗设置，设置系统自带弹窗中的内容
+                updateDialog:{
+                    mandatoryUpdateMessage:'强制更新内容: '+updateMessage.description,
+                    mandatoryContinueButtonLabel:'强制更新/确认',
+                    optionalIgnoreButtonLabel:'取消',
+                    optionalInstallButtonLabel:'安装',
+                    optionalUpdateMessage:'本次更新内容: '+updateMessage.description,
+                    title:'发现新版本'
+                }
+            },
+            // 第二个参数，更新状态检测，返回数字
+            //0 已经是最新，
+            //1 安装完成、等待生效，
+            //2 忽略更新，
+            //3 未知错误，
+            //4 已经在下载了，
+            //5 查询更新，
+            //6 弹出了更新确认界面，
+            //7 下载中，
+            //8 下载完成
+            (status)=>{
+                switch (status){
+                case 0: 
+                    Alert('已经是最新版本');
+                    break;
+                case 1 : 
+                    !updateMessage.isMandatory && Alert('更新完成, 再启动APP更新即生效');
+                    break;
+                case 3: 
+                    Alert('出错了，未知错误');
+                    break;
+                case 7 : 
+                    this.setState({showProcess: true});
+                    break;
+                case 8 : 
+                    this.setState({showProcess: false});
+                    break;
+                }
+            },
+          // 第三个参数，检测下载过程
+          ({receivedBytes,totalBytes})=>{
+            // console.log('DownloadProgress: ', receivedBytes, totalBytes);
+            this.setState({
+                receivedBytes: (receivedBytes/1024).toFixed(2), 
+                totalBytes: (totalBytes/1024).toFixed(2)})
+          },
+        );
         this.setState({showIndicator: false});
-        Alert('网络错误')
-    }).finally(all=>{
-        this.setState({showIndicator: false});
-    });
-
+    }
 
 
 
@@ -158,7 +162,7 @@ class App extends Component {
             <Provider store={store} style={styles.container}>
                 <StatusBar barStyle="light-content" />
                 <AppWithNavigationState/>
-               {this.state.showIndicator && <ActivityIndicator size="large" color="#0000ff" style={styles.indicator} /> } 
+               {/* {this.state.showIndicator && <ActivityIndicator size="large" color="#0000ff" style={styles.indicator} /> }  */}
             </Provider>
         )
     }

@@ -22,8 +22,10 @@ import Webview from './common/webview'
 import Elements from './common/elements'
 
 
-console.log(Elements,'----------------------------------------------------')
-const TabNavigator = createBottomTabNavigator(
+
+import BottomRouter from './bottomRouter'
+
+const BottomNavigator = createBottomTabNavigator(
   {
     Home: {
       screen: HomeStackNavigator,
@@ -80,6 +82,15 @@ const TabNavigator = createBottomTabNavigator(
 );
 
 
+
+
+BottomNavigator.navigationOptions = ({ navigation }) => {
+    return {
+        header :null   //这个地方要设置 null 否者会到这header 的title 有问题
+    };
+  };
+
+
 const AppInitNavigator = createStackNavigator({
   welcome:{
     screen:WelcomePage,
@@ -91,9 +102,18 @@ const AppInitNavigator = createStackNavigator({
 
 const TabStackNavigator = createStackNavigator({
     BottomTabNavigator: {
-        screen: TabNavigator,
-        navigationOptions:{
-            header :null   //这个地方要设置 null 否者会到这header 的title 有问题
+        // screen: BottomNavigator
+        screen: BottomRouter,
+        navigationOptions:({navigation})=>{
+            let tabBarVisible = true;
+            if (navigation.state.index > 0) {
+                tabBarVisible = false;
+            }
+            return {
+                tabBarVisible,
+                headerShown: false, // 自带头部置空
+                gestureEnabled: false // 左侧滑动返回   ios默认开启，android默认关闭
+            };
         }
     },
     //  这里可以放第三方；或者公共的 组件 
